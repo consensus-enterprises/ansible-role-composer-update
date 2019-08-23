@@ -1,10 +1,19 @@
 ---
 # defaults file for consensus.composer-update
 
+# Git information.
 composer_update_git_url: "git@gitlab.example.com:foo/bar.git"
-composer_update_git_clone_branch: "master"
-composer_update_git_push_branch: "composer-updates"
+composer_update_git_clone_branch: "dev"
+composer_update_git_push_branch: "{{ composer_update_git_clone_branch }}"
+
+# Commit metadata.
+composer_update_issue_id: "???"
+composer_update_git_commit_msg: "Issue #{{ composer_update_issue_id }}: Brought Composer's lock file up-to-date."
+
+# Directory paths.
 composer_update_temp_dir: "/tmp"
 composer_update_dest_dir: "{{ composer_update_temp_dir }}/composer-update-{{ ansible_date_time.iso8601 }}"
+
+# Composer update command options.
 composer_update_packages: "foo/bar foo/baz"
 composer_update_options: "--with-dependencies"
