@@ -1,0 +1,11 @@
+# Test a Drupal update on the local host.
+---
+- hosts: localhost
+  connection: local
+  strategy: debug
+  roles:
+    - consensus.composer-update
+  vars:
+    composer_update_git_url: "https://github.com/drupal-composer/drupal-project.git"
+    composer_update_git_clone_branch: "8.x"
+    composer_update_packages: "drupal/core webflo/drupal-core-require-dev"
