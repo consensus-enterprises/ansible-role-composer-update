@@ -1,0 +1,17 @@
+---
+# Results saver
+
+- name: Add the Composer lock file to the staging area
+  command: git add composer.lock
+  args:
+    chdir: "{{ composer_update_dest_dir }}"
+
+- name: Commit the lock file
+  command: git commit --message="{{ composer_update_git_commit_msg }}"
+  args:
+    chdir: "{{ composer_update_dest_dir }}"
+
+- name: Push the lock file upstream
+  command: git push origin {{ composer_update_git_push_branch }}
+  args:
+    chdir: "{{ composer_update_dest_dir }}"

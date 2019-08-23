@@ -6,3 +6,6 @@
 
 - name: Run the Composer update command
   import_tasks: run-composer-update.yml
+
+- name: Save the results
+  import_tasks: save-results.yml
