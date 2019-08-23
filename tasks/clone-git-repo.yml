@@ -1,0 +1,8 @@
+---
+# Git repository cloner
+
+- name: Clone the Git repository
+  git:
+    repo: "{{ composer_update_git_url }}"
+    dest: "{{ composer_update_dest_dir }}"
+    version: "{{ composer_update_git_clone_branch }}"
