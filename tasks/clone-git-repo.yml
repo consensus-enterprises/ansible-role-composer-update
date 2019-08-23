@@ -1,8 +1,14 @@
 ---
-# Git repository cloner
+# Set up the Git working tree
 
 - name: Clone the Git repository
   git:
     repo: "{{ composer_update_git_url }}"
     dest: "{{ composer_update_dest_dir }}"
     version: "{{ composer_update_git_clone_branch }}"
+
+- name: Switch to a new working branch
+  command: git checkout -b {{ composer_update_git_push_branch }}
+  args:
+    chdir: "{{ composer_update_dest_dir }}"
+  when: composer_update_git_push_branch != composer_update_git_clone_branch
