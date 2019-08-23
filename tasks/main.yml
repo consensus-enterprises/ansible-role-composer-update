@@ -1,2 +1,8 @@
 ---
 # tasks file for consensus.composer-update
+
+- name: Clone a temporary working tree for the Git repository
+  import_tasks: clone-git-repo.yml
+
+- name: Run the Composer update command
+  import_tasks: run-composer-update.yml
