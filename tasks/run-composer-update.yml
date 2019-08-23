@@ -1,0 +1,8 @@
+---
+# Composer update runner
+
+- name: Run the Composer update command
+  composer:
+    command: update
+    arguments: "{{ composer_update_packages }} {{ composer_update_options }}"
+    working_dir: "{{ composer_update_dest_dir }}"
