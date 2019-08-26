@@ -1,38 +1,79 @@
-Role Name
-=========
+Composer Update
+===============
 
-A brief description of the role goes here.
+Takes a [Composer](https://en.wikipedia.org/wiki/Composer_(software))-based [Git](https://en.wikipedia.org/wiki/Git) repository branch, updates it, and then pushes to the same (or another) branch.
+
+Overview
+--------
+
+This Ansible role does the following:
+
+1. Clones the Git repository to a temporary directory.
+1. Switches to a different branch (if necessary).
+1. Runs Composer's update command.
+1. Commits `composer.lock`.
+1. Pushes the commit to the specified (or same) branch.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+The below requirements are needed on the host that executes this module.
+
+* PHP
+* Composer installed in bin path (recommended `/usr/local/bin`)
+* Git version >= 1.7.1 (the command line tool)
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+See [defaults/main.yml](https://gitlab.com/consensus.enterprises/ansible-roles/ansible-role-composer-update/blob/master/defaults/main.yml).
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None.
+
+Possible Enhancements
+---------------------
+
+* Currently, this role always clones to a new temporary directory.  It might make sense to use reuse an existing clone, but then things get more complicated as the working tree could be dirty.  So additional work would be required to check for and handle that.  As usual, merge requests are welcome.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+```yml
+- hosts: dev.example.com
+  roles:
+    - consensus.composer-update
+  vars:
+    composer_update_git_url: "git@gitlab.com:example/myproject.git"
+    composer_update_git_clone_branch: "master"
+    composer_update_git_push_branch: "dev"
+    composer_update_packages: "foo/bar foo/baz"
+```
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+Testing
+-------
+
+Tests can be run like so (with more or fewer "v"s for verbosity):
+
+```sh
+ansible-playbook -vv --inventory TARGET_HOSTNAME, /path/to/this/role/tests/TEST_NAME.yml
+```
+
+Feel free to add your own tests in `tests/`, using existing ones as examples.  Contributions welcome.
+
+Issue Tracking
+--------------
+
+For bugs, feature requests, etc., please visit the [issue tracker](https://gitlab.com/consensus.enterprises/ansible-roles/ansible-role-composer-update/-/boards).
 
 License
 -------
 
-BSD
+[AGPLv3](https://en.wikipedia.org/wiki/Affero_General_Public_License)
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Written by [Colan Schwartz](https://consensus.enterprises/team/colan/) and other folks at [Consensus Enterprises](https://consensus.enterprises/).  To contact us, please use our [Web contact form](https://consensus.enterprises/#contact).
