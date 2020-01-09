@@ -2,7 +2,7 @@
 # Results saver
 
 - name: Add the Composer lock file to the staging area
-  command: git add composer.lock
+  command: git add composer.lock {{ composer_update_git_additions }}
   args:
     chdir: "{{ composer_update_dest_dir }}"
 
